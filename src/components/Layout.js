@@ -66,7 +66,7 @@ const Layout = () => {
                         type={"text"}
                         value={name}
                         onChange={(ev) => setName(ev.target.value)}
-                        placeholder={"PRICE-NAME"}
+                        placeholder={"±PRICE_ITEM-NAME"}
                     />
                     <input
                         type={"datetime-local"}
@@ -80,7 +80,7 @@ const Layout = () => {
                         type={"text"}
                         value={description}
                         onChange={(ev) => setDescription(ev.target.value)}
-                        placeholder={"description"}
+                        placeholder={"DESCRIPTION"}
                     />
                 </div>
 
