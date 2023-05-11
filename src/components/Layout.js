@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import "./Layout.css";
 
@@ -18,31 +19,80 @@ const Layout = () => {
         return await response.json();
     }
 
-    function submitHandler(ev) {
-        ev.preventDefault();
-        const url = process.env.REACT_APP_API_URL + "/transaction";
-        const price = name.split(" ")[0];
-        fetch(url, {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({
-                name: name.substring(price.length + 1),
-                price,
-                description,
-                datetime,
-            }),
-        }).then((response) => {
-            response.json().then((json) => {
-                setName("");
-                setDatetime("");
-                setDescription("");
-                //console.log("result", json);
+    const clearHandler = () => {
+        const url = process.env.REACT_APP_API_URL + "/deleteAll";
+        axios
+            .delete(url)
+            .then((response) => {
+                //console.log('All documents deleted successfully');
 
                 // update the transactions state
                 getTransaction().then(setTransactions);
+            })
+            .catch((error) => {
+                console.error("Error deleting documents:", error);
             });
-        });
-    }
+    };
+
+    // without using axios
+
+    // function submitHandler(ev) {
+    //     ev.preventDefault();
+    //     const url = process.env.REACT_APP_API_URL + "/transaction";
+    //     const price = name.split(" ")[0];
+    //     fetch(url, {
+    //         method: "POST",
+    //         headers: { "Content-type": "application/json" },
+    //         body: JSON.stringify({
+    //             name: name.substring(price.length + 1),
+    //             price,
+    //             description,
+    //             datetime,
+    //         }),
+    //     }).then((response) => {
+    //         response.json().then((json) => {
+    //             setName("");
+    //             setDatetime("");
+    //             setDescription("");
+    //             //console.log("result", json);
+
+    //             // update the transactions state
+    //             getTransaction().then(setTransactions);
+    //         });
+    //     });
+    // }
+
+    // using axios
+    const submitHandler = (ev) => {
+        ev.preventDefault();
+        const url = `${process.env.REACT_APP_API_URL}/transaction`;
+        const price = name.split(" ")[0];
+
+        axios
+            .post(
+                url,
+                {
+                    name: name.substring(price.length + 1),
+                    price,
+                    description,
+                    datetime,
+                },
+                {
+                    headers: { "Content-Type": "application/json" },
+                }
+            )
+            .then((response) => {
+                setName("");
+                setDatetime("");
+                setDescription("");
+
+                // update the transactions state
+                getTransaction().then(setTransactions);
+            })
+            .catch((error) => {
+                console.error("Error submitting data:", error);
+            });
+    };
 
     let balance = 0;
     for (const transaction of transactions) {
@@ -83,8 +133,13 @@ const Layout = () => {
                         placeholder={"DESCRIPTION"}
                     />
                 </div>
+                <div className="buttons">
+                    <button type="submit">Add Transaction</button>
 
-                <button type="submit">Add Transaction</button>
+                    <button type="reset" onClick={clearHandler}>
+                        Clear All
+                    </button>
+                </div>
             </form>
 
             <div className="transactions">
