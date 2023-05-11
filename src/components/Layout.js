@@ -20,7 +20,8 @@ const Layout = () => {
         return await response.json();
     }
 
-    const clearHandler = () => {
+    const clearHandler = (ev) => {
+        ev.preventDefault();
         const url = process.env.REACT_APP_API_URL + "/deleteAll";
         axios
             .delete(url)
