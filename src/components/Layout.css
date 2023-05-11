@@ -64,7 +64,7 @@ form button {
     overflow: hidden;
     z-index: 1;
     /* box-shadow: 6px 6px 12px #c5c5c5,
-                -6px -6px 12px #ffffff; */
+                    -6px -6px 12px #ffffff; */
 }
 
 button::before {
@@ -124,4 +124,113 @@ div.price.red {
 div.transaction div.datetime {
     font-size: 0.8rem;
     color: #ddd;
+}
+
+@media (max-width: 980px) {
+    main {
+        max-width: 80%;
+        max-height: 100%;
+    }
+
+    h1 {
+        text-align: center;
+        color: #fff;
+        margin-top: 10px;
+        font-size: 5rem;
+    }
+
+    h1 span {
+        font-size: 2rem;
+    }
+
+    form {
+        margin-top: 1px;
+    }
+
+    form input {
+        width: 100%;
+        background-color: transparent;
+        color: #ddd;
+        border: 2px solid #ddd;
+        padding: 0.3rem 0.3rem;
+        border-radius: 5px;
+        font-size: 1.5rem;
+    }
+    form input::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #ddd;
+        opacity: 1; /* Firefox */
+    }
+
+    form div.basicInfo {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 0.8rem;
+        color: #ddd;
+    }
+
+    form input[type="datetime-local"] {
+        color: #ddd;
+    }
+
+    form button {
+        width: 100%;
+        height: 3rem;
+        margin: 15px 5px 0px 0px;
+        border-radius: 15px;
+        font-size: 2rem;
+        font-weight: bold;
+        font-family: inherit;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        /* box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff; */
+    }
+
+    div.transactions {
+        margin-top: 2rem;
+    }
+
+    div.transaction {
+        display: flex;
+        padding: 0.9rem 0;
+        justify-content: space-between;
+        border-top: 1px solid #ddd;
+    }
+
+    div.transaction:first-child {
+        border: 0;
+    }
+
+    div.transaction div.name {
+        font-size: 3rem;
+    }
+
+    div.transaction div.description {
+        font-size: 1.5rem;
+        color: #ddd;
+    }
+
+    div.right {
+        text-align: right;
+    }
+
+    div.price{
+        font-size: 3rem;
+    }
+
+    div.price.green {
+        color: rgb(0, 255, 0);
+    }
+
+    div.price.red {
+        color: rgb(255, 0, 0);
+    }
+
+    div.transaction div.datetime {
+        font-size: 1.5rem;
+        color: #ddd;
+    }
 }
